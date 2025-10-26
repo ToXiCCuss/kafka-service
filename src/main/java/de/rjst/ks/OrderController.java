@@ -1,6 +1,7 @@
 package de.rjst.ks;
 
 import de.rjst.ks.kafka.KafkaWriter;
+import de.rjst.ks.kafka.KafkaWriterV2;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,11 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController {
 
     private final KafkaWriter kafkaWriter;
+    private final KafkaWriterV2 kafkaWriterV2;
 
     @PostMapping
     public void createOrder(@RequestParam Long count) {
         for (var i = 0; i < count; i++) {
             kafkaWriter.run();
+            kafkaWriterV2.run();
         }
     }
 

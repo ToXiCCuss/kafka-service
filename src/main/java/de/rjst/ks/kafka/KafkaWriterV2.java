@@ -1,5 +1,6 @@
 package de.rjst.ks.kafka;
 
+import de.rjst.ks.InternalOrder;
 import de.rjst.ks.Order;
 import de.rjst.ks.OrderStatus;
 import java.util.UUID;
@@ -11,15 +12,14 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class KafkaWriter implements Runnable {
+public class KafkaWriterV2 implements Runnable {
 
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
     @Override
     public void run() {
-        final var order = new Order();
+        final var order = new InternalOrder();
         order.setId(UUID.randomUUID());
-        order.setCustomer("customer");
         order.setStatus(OrderStatus.PENDING);
         kafkaTemplate.send(OrderStatus.PENDING.name(), order);
         log.info("order {} sent", order.getId());
