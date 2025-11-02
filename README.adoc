@@ -1,0 +1,12 @@
+= Kafka-Service
+
+Example for Kafka with Json and AsyncAPI/OpenAPI
+
+|===
+|Link |URL
+
+|OpenAPI |http://localhost:8080/v3/api-docs
+|SwaggerUI |http://localhost:8080/swagger-ui/index.html
+|AsyncAPI |http://localhost:8080/springwolf/docs
+|SpringWolfUI |http://localhost:8080/springwolf/asyncapi-ui.html
+|===

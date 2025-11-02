@@ -2,6 +2,9 @@ package de.rjst.ks.kafka;
 
 import de.rjst.ks.Order;
 import de.rjst.ks.OrderStatus;
+import io.github.springwolf.bindings.kafka.annotations.KafkaAsyncOperationBinding;
+import io.github.springwolf.core.asyncapi.annotations.AsyncOperation;
+import io.github.springwolf.core.asyncapi.annotations.AsyncPublisher;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +18,11 @@ public class KafkaWriter implements Runnable {
 
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
+    @AsyncPublisher(operation = @AsyncOperation(
+        channelName = "PENDING",
+        description = "Publish order"
+    ))
+    @KafkaAsyncOperationBinding
     @Override
     public void run() {
         final var order = new Order();

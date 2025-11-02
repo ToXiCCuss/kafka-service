@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: kafka-service
   kafka:
     bootstrap-servers: localhost:9092
     producer:
@@ -15,3 +17,29 @@ spring:
 springdoc:
   swagger-ui:
     use-root-path: true
+  packages-to-scan: de.rjst.ks
+  api-docs:
+    version: openapi_3_0
+
+
+springwolf:
+  enabled: true
+  plugin:
+    kafka:
+      publishing:
+        enabled: true
+        producer:
+          bootstrap-servers:
+            - localhost:9092
+          key-serializer: org.apache.kafka.common.serialization.StringSerializer
+          value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  docket:
+    base-package: de.rjst.ks
+    info:
+      title: ${spring.application.name}
+      version: 4.0
+      description: order service
+    servers:
+      kafka-server:
+        protocol: kafka
+        host: localhost:9092
